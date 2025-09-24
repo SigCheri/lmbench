@@ -320,4 +320,7 @@ extern int handle_scheduler(int childno, int benchproc, int nbenchprocs);
 extern char *rpc_xact_1();
 extern char *client_rpc_xact_1();
 
+void
+lmbench_usage(int argc, char *argv[], char* usage);
+
 #endif /* _BENCH_H */
