@@ -154,7 +154,7 @@ base_initialize(iter_t iterations, void* cookie)
 
 	if (p == NULL) {
             printf(" memory allocation failure, current memory size used for\
-testing is %llu bytes, please choose smaller memory size for testing\n ", state->maxlen);
+testing is %zu bytes, please choose smaller memory size for testing\n ", state->maxlen);
             return;
 	}
 

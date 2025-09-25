@@ -100,10 +100,10 @@ timeit(char *where, size_t size)
 		if (range < size && size < range + incr) {
 			incr = size - range;
 		}
-		fprintf(stderr, "%dMB OK\r", range/(1024*1024));
+		fprintf(stderr, "%luMB OK\r", range/(1024*1024));
 	}
 	fprintf(stderr, "\n");
-	printf("%d\n", (size>>20));
+	printf("%zu\n", (size>>20));
 }
 
 static void

@@ -18,7 +18,7 @@ done
 
 trap 'rm -f ${BASE}$$.s ${BASE}$$.c ${BASE}$$.o ${BASE}$$; exit 1' 1 2 15
 
-LDLIBS="-lm -ltirpc"
+LDLIBS="-lm"
 
 # check for HP-UX's ANSI compiler
 echo "main(int ac, char *av[]) { int i; }" > ${BASE}$$.c
@@ -49,12 +49,12 @@ then
 	rm -f ${BASE}$$ ${BASE}$$.o ${BASE}$$.c
 fi
 	
-# check for bcopy (optionally set the SYS5 flag)
-echo "#include <string.h>" > ${BASE}$$.c
-echo "main() { char a[256], b[256]; bcopy(a, b, 256); }" >> ${BASE}$$.c
-${CC} ${CFLAGS} -o ${BASE}$$ ${BASE}$$.c 1>${NULL} 2>${NULL} \
-	|| CFLAGS="${CFLAGS} -DSYS5"
-rm -f ${BASE}$$ ${BASE}$$.o ${BASE}$$.c
+# # check for bcopy (optionally set the SYS5 flag)
+# echo "#include <string.h>" > ${BASE}$$.c
+# echo "main() { char a[256], b[256]; bcopy(a, b, 256); }" >> ${BASE}$$.c
+# ${CC} ${CFLAGS} -o ${BASE}$$ ${BASE}$$.c 1>${NULL} 2>${NULL} \
+# 	|| CFLAGS="${CFLAGS} -DSYS5"
+# rm -f ${BASE}$$ ${BASE}$$.o ${BASE}$$.c
 
 # check for valloc
 echo "#include <stdlib.h>" > ${BASE}$$.c
@@ -247,7 +247,7 @@ rm -f ${BASE}$$ ${BASE}$$.o ${BASE}$$.c
 
 
 if [ ! -d ${BINDIR} ]; then mkdir -p ${BINDIR}; fi
-LDLIBS="${LDLIBS} -ltirpc"
-CFLAGS="${CFLAGS} -I/usr/include/tirpc -Wimplicit-function-declaration"
+LDLIBS="${LDLIBS} ${ADDITIONAL_LDFLAGS}"
+CFLAGS="${CFLAGS} ${ADDITIONAL_CFLAGS} -I -Wimplicit-function-declaration"
 # now go ahead and build everything!
 ${MAKE} OS="${OS}" CC="${CC}" CFLAGS="${CFLAGS}" LDLIBS="${LDLIBS}" O="${BINDIR}" $*

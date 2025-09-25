@@ -20,7 +20,7 @@ typedef unsigned char bool_t;
 #include        <signal.h>
 #include        <errno.h>
 #ifndef WIN32
-#include        <strings.h>
+#include        <string.h>
 #endif
 #include        <sys/types.h>
 #ifndef WIN32

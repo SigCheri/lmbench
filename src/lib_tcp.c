@@ -80,7 +80,7 @@ tcp_accept(int sock, int rdwr)
 	bzero((void*)&s, namelen);
 
 retry:
-	if ((newsock = accept(sock, (struct sockaddr*)&s, &namelen)) < 0) {
+	if ((newsock = accept(sock, (struct sockaddr*)&s, (socklen_t *)&namelen)) < 0) {
 		if (errno == EINTR)
 			goto retry;
 		perror("accept");
@@ -230,7 +230,7 @@ sockport(int s)
 	struct sockaddr_in sin;
 
 	namelen = sizeof(sin);
-	if (getsockname(s, (struct sockaddr *)&sin, &namelen) < 0) {
+	if (getsockname(s, (struct sockaddr *)&sin, (socklen_t *)&namelen) < 0) {
 		perror("getsockname");
 		return(-1);
 	}

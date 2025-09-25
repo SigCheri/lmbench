@@ -196,7 +196,7 @@ setup_names(iter_t iterations, void* cookie)
 	doff = 0;
 	setup_names_recurse(&foff, &doff, depth, state);
 	if (foff != iterations || doff != state->ndirs - 1) {
-		fprintf(stderr, "setup_names: ERROR: foff=%lu, iterations=%lu, doff=%lu, ndirs=%lu, depth=%d\n", (unsigned long)foff, (unsigned long)iterations, (unsigned long)doff, (unsigned long)state->ndirs, depth);
+		fprintf(stderr, "setup_names: ERROR: foff=%lu, iterations=%lu, doff=%lu, ndirs=%lu, depth=%d\n", (unsigned long)foff, (unsigned long)iterations, (unsigned long)doff, (unsigned long)state->ndirs, (int)depth);
 	}
 }
 
@@ -249,7 +249,7 @@ benchmark_mk(iter_t iterations, void* cookie)
 
 	while (iterations-- > 0) {
 		if (!state->names[iterations]) {
-			fprintf(stderr, "benchmark_mk: null filename at %lu of %lu\n", iterations, state->n);
+			fprintf(stderr, "benchmark_mk: null filename at %lu of %d\n", iterations, state->n);
 			continue;
 		}
 		mkfile(state->names[iterations], state->size);
@@ -263,7 +263,7 @@ benchmark_rm(iter_t iterations, void* cookie)
 
 	while (iterations-- > 0) {
 		if (!state->names[iterations]) {
-			fprintf(stderr, "benchmark_rm: null filename at %lu of %lu\n", iterations, state->n);
+			fprintf(stderr, "benchmark_rm: null filename at %lu of %d\n", iterations, state->n);
 			continue;
 		}
 		unlink(state->names[iterations]);

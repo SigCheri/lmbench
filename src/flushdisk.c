@@ -1,3 +1,4 @@
+#include "bench.h"
 #ifdef	linux
 /*
  * flushdisk() - linux block cache clearing

@@ -84,7 +84,8 @@ int	norepeats = -1;
 	bds_msg	*m1, *m2;
 #endif
 
-uint64	getarg();
+uint64 getarg(char *s, int ac, char **av);
+void chkarg(char *arg);
 int	been_there(uint64 off);
 int	getfile(char *s, int ac, char **av);
 
@@ -170,7 +171,6 @@ main(int ac, char **av)
 	int     Fork, misses, mismatch, outpat, inpat, in, timeopen, gotcnt;
 	int	slp;
 	uint64	skip, size, count;
-	void	chkarg();
 	int     i;
 	uint64	off = 0;
 	int	touch;
@@ -254,7 +254,7 @@ main(int ac, char **av)
 #endif
 	touch = getarg("touch=", ac, av) != -1;
 	hash = getarg("hash=", ac, av) != (uint64)-1;
-	Label = (char *)getarg("label=", ac, av);
+	Label = &av[getarg("label=", ac, av)][strlen("label=")];
 	count = getarg("count=", ac, av);
 	size = getarg("move=", ac, av);
 	if (size != (uint64)-1)
@@ -749,7 +749,7 @@ getarg(char *s, int ac, char **av)
 			}
 
 			if (!strncmp(av[i], "label", 5)) {
-				return (uint64)(long)(&av[i][len]); /* HACK */
+				return i; /* HACK */
 			}
 			if (!strncmp(av[i], "bs=", 3)) {
 				return (uint64)(bs);

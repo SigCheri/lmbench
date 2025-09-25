@@ -27,7 +27,7 @@ http(char *server, char *file, int prog)
 	sock = tcp_connect(server, prog, SOCKOPT_REUSE);
 	sprintf(buf, "GET /%s HTTP/1.0\r\n\r\n\n", file);
 	if (debug) {
-		printf(buf);
+		printf("%s", buf);
 	}
 	write(sock, buf, strlen(buf));
 	while ((n = read(sock, buf, XFERSIZE)) > 0) {

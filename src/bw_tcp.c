@@ -139,7 +139,7 @@ initialize(iter_t iterations, void *cookie)
 		perror("socket connection");
 		exit(1);
 	}
-	sprintf(buf, "%lu", state->msize);
+	sprintf(buf, "%d", state->msize);
 	if (write(state->sock, buf, strlen(buf) + 1) != strlen(buf) + 1) {
 		perror("control write");
 		exit(1);

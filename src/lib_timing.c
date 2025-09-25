@@ -1303,14 +1303,15 @@ save_median()
 static long *
 one_op(register long *p)
 {
-	BENCH_INNER(p = (long *)*p;, 0);
+	BENCH_INNER(p = __builtin_cheri_address_set(p, *p);, 0);
 	return (p);
 }
 
 static long *
 two_op(register long *p)
 {
-	BENCH_INNER(p = (long *)*p; p = (long*)*p;, 0);
+	long q = 0;
+	BENCH_INNER(p = __builtin_cheri_address_set(p, *p); p = __builtin_cheri_address_set(p, *p);, 0);
 	return (p);
 }
 

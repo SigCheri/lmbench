@@ -62,7 +62,7 @@ unix_accept(int sock)
 	bzero((void*)&s, namelen);
 
 retry:
-	if ((newsock = accept(sock, (struct sockaddr*)&s, &namelen)) < 0) {
+	if ((newsock = accept(sock, (struct sockaddr*)&s, (socklen_t *)&namelen)) < 0) {
 		if (errno == EINTR)
 			goto retry;
 		perror("accept");
