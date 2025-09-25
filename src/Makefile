@@ -73,7 +73,7 @@ SRCS =  bw_file_rd.c bw_mem.c bw_mmap_rd.c bw_pipe.c bw_tcp.c bw_udp.c	\
 	lib_debug.c lib_mem.c lib_stats.c lib_tcp.c lib_timing.c 	\
 	lib_udp.c lib_unix.c lib_sched.c				\
 	line.c lmdd.c lmhttp.c par_mem.c par_ops.c loop_o.c memsize.c 	\
-	mhz.c msleep.c rhttp.c seek.c timing_o.c tlb.c stream.c		\
+	mhz.c msleep.c rhttp.c seek.c timing_o.c tlb.c stream.c execute.c \
 	bench.h lib_debug.h lib_tcp.h lib_udp.h lib_unix.h names.h 	\
 	stats.h timing.h version.h
 
@@ -90,7 +90,7 @@ ASMS =  $O/bw_file_rd.s $O/bw_mem.s $O/bw_mmap_rd.s $O/bw_pipe.s 	\
 	$O/lib_unix.s $O/lib_sched.s					\
 	$O/line.s $O/lmdd.s $O/lmhttp.s $O/par_mem.s	\
 	$O/par_ops.s $O/loop_o.s $O/memsize.s $O/mhz.s $O/msleep.s	\
-	$O/rhttp.s $O/timing_o.s $O/tlb.s $O/stream.s			\
+	$O/rhttp.s $O/timing_o.s $O/tlb.s $O/stream.s $O/execute.s	\
 	$O/cache.s $O/lat_dram_page.s $O/lat_pmake.s $O/lat_rand.s	\
 	$O/lat_usleep.s $O/lat_cmd.s
 EXES =	$O/bw_file_rd $O/bw_mem $O/bw_mmap_rd $O/bw_pipe $O/bw_tcp 	\
@@ -103,7 +103,7 @@ EXES =	$O/bw_file_rd $O/bw_mem $O/bw_mmap_rd $O/bw_pipe $O/bw_tcp 	\
 	$O/msleep $O/loop_o $O/lat_fifo $O/lmhttp $O/lat_http		\
 	$O/lat_fcntl $O/disk $O/lat_unix_connect $O/flushdisk		\
 	$O/lat_ops $O/line $O/tlb $O/par_mem $O/par_ops 		\
-	$O/stream
+	$O/stream $O/execute
 OPT_EXES=$O/cache $O/lat_dram_page $O/lat_pmake $O/lat_rand 		\
 	$O/lat_usleep $O/lat_cmd
 LIBOBJS= $O/lib_tcp.o $O/lib_udp.o $O/lib_unix.o $O/lib_timing.o 	\
@@ -505,4 +505,8 @@ $O/lat_rand:  lat_rand.c timing.h stats.h bench.h $O/lmbench.a
 $O/lat_cmd.s:lat_cmd.c timing.h stats.h bench.h
 $O/lat_cmd:  lat_cmd.c timing.h stats.h bench.h $O/lmbench.a
 	$(COMPILE) -o $O/lat_cmd lat_cmd.c $O/lmbench.a $(LDLIBS)
+
+$O/execute.s:execute.c timing.h stats.h bench.h
+$O/execute:  execute.c timing.h stats.h bench.h $O/lmbench.a
+	$(COMPILE) -o $O/execute execute.c $O/lmbench.a $(LDLIBS)
 

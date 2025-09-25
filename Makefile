@@ -15,12 +15,18 @@
 # shar		build a shippable shar archive
 
 SHELL=/bin/sh
+OS=`scripts/os`
+BIN_PATH = bin/$(OS)
+SAMPLE_NUMBER ?= 1
 
 build: 
 	cd src && $(MAKE)
 
 results: FRC
 	cd src && $(MAKE) results
+
+execute:
+	cd $(BIN_PATH) && ./execute $(SAMPLE_NUMBER)
 
 rerun: 
 	cd src && $(MAKE) rerun
